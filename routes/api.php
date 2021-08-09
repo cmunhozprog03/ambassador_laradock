@@ -4,7 +4,7 @@ use App\Http\Controllers\ambassadorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\ProductController;
 
 // Admin
 Route::prefix('admin')->group(function(){
@@ -20,6 +20,8 @@ Route::prefix('admin')->group(function(){
 
     //Ambassadors
     Route::get('ambassadors', [ambassadorController::class, 'index']);
+
+    Route::apiResource('products', ProductController::class);
   });
 
 });

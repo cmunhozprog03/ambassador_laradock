@@ -1,5 +1,6 @@
 <?php
 
+use Faker\Provider\ar_JO\Text;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,10 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->Text('description')->nullable();
+            $table->string('image');
+            $table->decimal('price');
             $table->timestamps();
         });
     }
