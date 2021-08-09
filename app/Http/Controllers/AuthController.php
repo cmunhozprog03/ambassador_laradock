@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
+use Closure;
 
 class AuthController extends Controller
 {
@@ -29,15 +30,31 @@ class AuthController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $user = Auth::user();
+        $user = \Auth::user();
 
         $jwt = $user->createToken('token')->plainTextToken;
 
-        $cookie = cookie('jwt', 60*24); // 1 dia
+        $cookie = cookie('jwt', $jwt, 60*24); // 1 dia
 
 
         return response([
-            'message' => 'success'
+            'message' => 'sucsess',
         ])->withCookie($cookie);
     }
+
+    public function user(Request $request)
+    {
+        return $request->user();
+    }
+
+    public function logout()
+    {
+        $cookie = \Cookie::forget('jwt');
+
+        return response([
+            'message' => 'sucsess',
+        ])->withCookie($cookie);
+    }
+
+
 }
